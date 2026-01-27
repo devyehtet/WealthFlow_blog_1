@@ -1,88 +1,116 @@
 // src/lib/adDensity.ts
-// Word-count based ad density helpers (safe for mixed block schemas)
+// Ad density helpers: place ad blocks based on word count without touching headings.
 
-export type BlockLike = {
-  type: string;
-  // common optional fields across guides/blogs
-  text?: string;
-  title?: string;
-  items?: Array<string | { text?: string; title?: string }>;
-  // allow any other fields without breaking TS
-  [key: string]: unknown;
-};
+export type TextBlock =
+  | { type: "p"; text: string }
+  | { type: "h2"; text: string }
+  | { type: "h3"; text: string }
+  | { type: "callout"; title: string; text: string; tone?: string }
+  | { type: "ul"; items: string[] }
+  | { type: "ol"; items: string[] }
+  | { type: "ad"; label?: string };
 
-function countWords(input?: string) {
-  if (!input) return 0;
-  // collapse whitespace + count tokens
-  const s = input.replace(/\s+/g, " ").trim();
-  if (!s) return 0;
-  return s.split(" ").length;
+// Count words in a string safely
+function countWords(s: string) {
+  return (s || "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .split(" ")
+    .filter(Boolean).length;
 }
 
-function pickString(x: unknown): string | undefined {
-  return typeof x === "string" ? x : undefined;
-}
+// Count words for each block type
+export function blockWords(b: any): number {
+  if (!b || !b.type) return 0;
 
-function blockWords(b: BlockLike) {
-  // IMPORTANT:
-  // Don't use a narrow union type for b.type here, because your blocks
-  // can differ between guides/blogs/calculators and TS will complain.
-  const t = (b.type || "").toLowerCase();
+  if (b.type === "p" || b.type === "h2" || b.type === "h3") return countWords(b.text);
+  if (b.type === "callout") return countWords(b.title) + countWords(b.text);
+  if (b.type === "ul" || b.type === "ol") return (b.items || []).reduce((sum: number, it: string) => sum + countWords(it), 0);
 
-  // Most common text-y blocks
-  if (t === "p" || t === "h2" || t === "h3" || t === "h4" || t === "blockquote") {
-    return countWords(pickString(b.text)) + countWords(pickString(b.title));
-  }
-
-  // Callout-style blocks (title + text)
-  if (t === "callout") {
-    return countWords(pickString(b.title)) + countWords(pickString(b.text));
-  }
-
-  // Lists: items can be strings or objects with text/title
-  if (t === "ul" || t === "ol") {
-    const items = Array.isArray(b.items) ? b.items : [];
-    return items.reduce((sum, it) => {
-      if (typeof it === "string") return sum + countWords(it);
-      if (it && typeof it === "object") {
-        const obj = it as { text?: string; title?: string };
-        return sum + countWords(obj.title) + countWords(obj.text);
-      }
-      return sum;
-    }, 0);
-  }
-
-  // Ads shouldn't count as content words
-  if (t === "ad") return 0;
-
-  // Fallback:
-  // If a block has text/title strings, count them anyway.
-  return countWords(pickString(b.title)) + countWords(pickString(b.text));
+  // ad blocks don't contribute to reading words
+  return 0;
 }
 
 /**
- * Estimate total words in a block list.
+ * Return desired number of in-article ads based on total word count.
+ * You can tune these thresholds for AdSense compliance + UX.
  */
-export function estimateWords(blocks: BlockLike[]) {
-  return (blocks || []).reduce((sum, b) => sum + blockWords(b), 0);
+export function adsByWordCount(totalWords: number) {
+  // UX-safe defaults
+  if (totalWords < 450) return 0;
+  if (totalWords < 900) return 1;
+  if (totalWords < 1400) return 2;
+  if (totalWords < 2000) return 3;
+  return 4;
 }
 
 /**
- * Decide how many in-article ad slots to insert by word count.
- * Defaults are conservative for AdSense UX.
+ * Inject {type:"ad"} blocks into content using word-count positions.
+ * - Never inserts right before headings (h2/h3)
+ * - Never inserts consecutive ads
+ * - Tries to insert after a paragraph/callout/list once passing each threshold
  */
-export function adsByWordCount(totalWords: number, opts?: {
-  wordsPerAd?: number;   // e.g. 350-500
-  minAds?: number;       // usually 0-1
-  maxAds?: number;       // keep density reasonable
-}) {
-  const wordsPerAd = opts?.wordsPerAd ?? 450;
-  const minAds = opts?.minAds ?? 0;
-  const maxAds = opts?.maxAds ?? 4;
+export function injectAdsByWordCount<T extends TextBlock>(
+  blocks: T[],
+  opts?: {
+    labelPrefix?: string;
+    // minimum words between ads (safety guard)
+    minGapWords?: number;
+  }
+): (T | { type: "ad"; label?: string })[] {
+  const labelPrefix = opts?.labelPrefix ?? "Ad Slot";
+  const minGapWords = opts?.minGapWords ?? 250;
 
-  if (!Number.isFinite(totalWords) || totalWords <= 0) return 0;
+  const total = blocks.reduce((sum, b) => sum + blockWords(b), 0);
+  const adCount = adsByWordCount(total);
 
-  const raw = Math.floor(totalWords / wordsPerAd);
-  const clamped = Math.max(minAds, Math.min(maxAds, raw));
-  return clamped;
+  if (!adCount) return blocks;
+
+  // Spread thresholds through the article (avoid intro & avoid very end)
+  // e.g. for 3 ads -> 25%, 50%, 75%
+  const targets = Array.from({ length: adCount }, (_, i) => Math.floor(((i + 1) / (adCount + 1)) * total));
+
+  const out: (T | { type: "ad"; label?: string })[] = [];
+  let running = 0;
+  let inserted = 0;
+  let lastAdAt = -999999;
+
+  const canInsertHere = (curr: any, next: any) => {
+    // don't insert before a heading
+    if (next && (next.type === "h2" || next.type === "h3")) return false;
+    // don't insert right after an ad (no consecutive ads)
+    if (curr && curr.type === "ad") return false;
+    return true;
+  };
+
+  for (let i = 0; i < blocks.length; i++) {
+    const curr = blocks[i];
+    const next = blocks[i + 1];
+
+    out.push(curr);
+    running += blockWords(curr);
+
+    if (inserted >= targets.length) continue;
+
+    const target = targets[inserted];
+
+    // Insert when we pass target, and ensure spacing
+    const gapOk = running - lastAdAt >= minGapWords;
+    const passed = running >= target;
+
+    if (!passed || !gapOk) continue;
+
+    // Prefer inserting after readable blocks
+    const currOk =
+      curr.type === "p" || curr.type === "callout" || curr.type === "ul" || curr.type === "ol";
+
+    if (!currOk) continue;
+    if (!canInsertHere(curr, next)) continue;
+
+    out.push({ type: "ad", label: `${labelPrefix} (${inserted + 1})` });
+    inserted++;
+    lastAdAt = running;
+  }
+
+  return out;
 }

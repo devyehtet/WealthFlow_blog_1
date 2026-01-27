@@ -1,0 +1,3 @@
+module.exports=[67876,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(30106);a.n(d("[project]/Documents/wealthflow_new/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},29602,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(30106);a.n(d("[project]/Documents/wealthflow_new/node_modules/next/dist/client/components/builtin/global-error.js"))},81653,a=>{"use strict";a.i(67876);var b=a.i(29602);a.n(b)}];
+
+//# sourceMappingURL=fcefe_next_dist_client_components_builtin_global-error_deadc867.js.map
