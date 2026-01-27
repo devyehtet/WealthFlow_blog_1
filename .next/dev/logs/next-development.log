@@ -1,2 +1,37 @@
 [00:00:01.155] Server  LOG     ✓ Ready in 751ms
 [00:00:06.223] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:09.611] Browser ERROR   ./Documents/wealthflow_new/src/content/site.ts:8:10
+Parsing ecmascript source code failed
+   6 |   // change to your real domain later:
+   7 |   domain: "https://example.com",
+>  8 |   tagline: "Smarter money decisions, made simple.",
+     |          ^
+   9 |   description:
+  10 |     "Finance guides, calculators, and practical insights to help you save smarter, invest better, and plan long-term.",
+  11 |   language: "en",
+
+Expected ';', '}' or <eof>
+
+Import trace:
+  Server Component:
+    ./Documents/wealthflow_new/src/content/site.ts
+    ./Documents/wealthflow_new/src/app/layout.tsx
+[00:11:12.020] Server  LOG     ✓ Compiled in 55ms
+[00:11:12.610] Browser ERROR   ./Documents/wealthflow_new/src/content/site.ts:8:10
+Parsing ecmascript source code failed
+   6 |   // change to your real domain later:
+   7 |   domain: "https://example.com",
+>  8 |   tagline: "Smarter money decisions, made simple.",
+     |          ^
+   9 |   description:
+  10 |     "Finance guides, calculators, and practical insights to help you save smarter, invest better, and plan long-term.",
+  11 |   language: "en",
+
+Expected ';', '}' or <eof>
+
+Import trace:
+  Server Component:
+    ./Documents/wealthflow_new/src/content/site.ts
+    ./Documents/wealthflow_new/src/app/layout.tsx
+[00:11:23.190] Server  LOG     ✓ Compiled in 422ms
+[00:12:31.533] Browser WARN    Image with src "/images/blog/savings-goal-calculator.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes

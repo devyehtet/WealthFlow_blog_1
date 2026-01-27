@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "0f8c5e2f7378921dc9f162dc3874fd44",
-    "previewModeSigningKey": "7d18f01cda8f0d7f5fe2ae60e94a6ec19a53185ab6d58d266b4fd87d4475b3e2",
-    "previewModeEncryptionKey": "274719a92427268c978847348b548a01448347ce69d3dd13f232b75f5c0cd140"
-  }
-}
+{"version":4,"routes":{"/blog/smart-money-habits-that-actually-grow-wealth":{},"/blog/wealth-building-strategies-that-work-in-any-economy":{},"/blog/savings-goal-calculator-guide-how-much-should-you-save-monthly":{},"/blog/good-debt-vs-bad-debt-what-you-should-know":{},"/blog/why-your-budget-fails":{},"/blog/interest-rates-explained":{}},"dynamicRoutes":{"/blog/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/blog/[slug]","routeRegex":"^\\/blog\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"0f8c5e2f7378921dc9f162dc3874fd44","previewModeSigningKey":"7d18f01cda8f0d7f5fe2ae60e94a6ec19a53185ab6d58d266b4fd87d4475b3e2","previewModeEncryptionKey":"274719a92427268c978847348b548a01448347ce69d3dd13f232b75f5c0cd140"}}

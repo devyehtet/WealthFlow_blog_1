@@ -35,7 +35,8 @@ __turbopack_context__.s([
 ]);
 const site = {
     name: "WealthFlow",
-    // change to your real domain later:
+    adsenseEnabled: false,
+    adsenseClient: "ca-pub-xxxxxxxxxxxx",
     domain: "https://example.com",
     tagline: "Smarter money decisions, made simple.",
     description: "Finance guides, calculators, and practical insights to help you save smarter, invest better, and plan long-term.",

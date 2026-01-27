@@ -1,7 +1,8 @@
 export const site = {
   name: "WealthFlow",
-  // change to your real domain later:
-  domain: "https://example.com",
+  adsenseEnabled: false, // ✅ correct (hide all ads)
+  adsenseClient: "ca-pub-xxxxxxxxxxxx", // ✅ safe placeholder
+  domain: "https://example.com", // ⚠️ change before production
   tagline: "Smarter money decisions, made simple.",
   description:
     "Finance guides, calculators, and practical insights to help you save smarter, invest better, and plan long-term.",
