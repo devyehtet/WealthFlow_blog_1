@@ -18,9 +18,18 @@ export default function SearchPage() {
     const inText = (s: string) => s.toLowerCase().includes(query);
 
     return {
-      guides: guides.filter((g) => inText(g.title) || inText(g.excerpt) || g.tags.some(inText)).slice(0, 8),
-      posts: posts.filter((p) => inText(p.title) || inText(p.excerpt)).slice(0, 8),
-      calcs: calculators.filter((c) => inText(c.title) || inText(c.description) || c.keywords.some(inText)).slice(0, 8),
+      guides: guides
+        .filter((g) => inText(g.title) || inText(g.excerpt) || g.tags.some((t) => inText(t)))
+        .slice(0, 8),
+
+      posts: posts
+        .filter((p) => inText(p.title) || inText(p.excerpt))
+        .slice(0, 8),
+
+      // ✅ FIX: remove c.keywords (not in type)
+      calcs: calculators
+        .filter((c) => inText(c.title) || inText(c.excerpt))
+        .slice(0, 8),
     };
   }, [q]);
 
@@ -41,9 +50,11 @@ export default function SearchPage() {
             <h2 className="text-base font-semibold">Calculators</h2>
             <div className="mt-3 grid gap-4 md:grid-cols-2">
               {results.calcs.map((c) => (
-                <Card key={c.slug} title={c.title} description={c.description} href={`/calculators/${c.slug}`} />
+                <Card key={c.slug} title={c.title} description={c.excerpt} href={`/calculators/${c.slug}`} />
               ))}
-              {q && results.calcs.length === 0 ? <p className="text-sm text-neutral-600">No calculators found.</p> : null}
+              {q && results.calcs.length === 0 ? (
+                <p className="text-sm text-neutral-600">No calculators found.</p>
+              ) : null}
             </div>
           </section>
 
@@ -53,7 +64,9 @@ export default function SearchPage() {
               {results.guides.map((g) => (
                 <Card key={g.slug} title={g.title} description={g.excerpt} href={`/guides/${g.slug}`} />
               ))}
-              {q && results.guides.length === 0 ? <p className="text-sm text-neutral-600">No guides found.</p> : null}
+              {q && results.guides.length === 0 ? (
+                <p className="text-sm text-neutral-600">No guides found.</p>
+              ) : null}
             </div>
           </section>
 
@@ -63,7 +76,9 @@ export default function SearchPage() {
               {results.posts.map((p) => (
                 <Card key={p.slug} title={p.title} description={p.excerpt} href={`/blog/${p.slug}`} />
               ))}
-              {q && results.posts.length === 0 ? <p className="text-sm text-neutral-600">No posts found.</p> : null}
+              {q && results.posts.length === 0 ? (
+                <p className="text-sm text-neutral-600">No posts found.</p>
+              ) : null}
             </div>
           </section>
         </div>
