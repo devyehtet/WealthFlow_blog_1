@@ -1,74 +1,88 @@
-import type { Block } from "@/components/ContentBlocks";
+// src/lib/adDensity.ts
+// Word-count based ad density helpers (safe for mixed block schemas)
 
-type Options = {
-  /** target words per ad (typical: 350–550 for long guides) */
-  wordsPerAd?: number;
-  /** minimum words before the first in-content ad */
-  minWordsBeforeFirstAd?: number;
-  /** maximum auto ads inserted */
-  maxAutoAds?: number;
-  /** label text prefix */
-  labelPrefix?: string;
+export type BlockLike = {
+  type: string;
+  // common optional fields across guides/blogs
+  text?: string;
+  title?: string;
+  items?: Array<string | { text?: string; title?: string }>;
+  // allow any other fields without breaking TS
+  [key: string]: unknown;
 };
 
-function countWords(text: string) {
-  return text.trim().split(/\s+/).filter(Boolean).length;
+function countWords(input?: string) {
+  if (!input) return 0;
+  // collapse whitespace + count tokens
+  const s = input.replace(/\s+/g, " ").trim();
+  if (!s) return 0;
+  return s.split(" ").length;
 }
 
-function blockWords(b: Block) {
-  if (b.type === "p" || b.type === "h2" || b.type === "h3" || b.type === "quote") return countWords(b.text);
-  if (b.type === "callout") return countWords(b.title) + countWords(b.text);
-  if (b.type === "ul" || b.type === "ol") return b.items.reduce((sum, x) => sum + countWords(x), 0);
-  return 0;
+function pickString(x: unknown): string | undefined {
+  return typeof x === "string" ? x : undefined;
+}
+
+function blockWords(b: BlockLike) {
+  // IMPORTANT:
+  // Don't use a narrow union type for b.type here, because your blocks
+  // can differ between guides/blogs/calculators and TS will complain.
+  const t = (b.type || "").toLowerCase();
+
+  // Most common text-y blocks
+  if (t === "p" || t === "h2" || t === "h3" || t === "h4" || t === "blockquote") {
+    return countWords(pickString(b.text)) + countWords(pickString(b.title));
+  }
+
+  // Callout-style blocks (title + text)
+  if (t === "callout") {
+    return countWords(pickString(b.title)) + countWords(pickString(b.text));
+  }
+
+  // Lists: items can be strings or objects with text/title
+  if (t === "ul" || t === "ol") {
+    const items = Array.isArray(b.items) ? b.items : [];
+    return items.reduce((sum, it) => {
+      if (typeof it === "string") return sum + countWords(it);
+      if (it && typeof it === "object") {
+        const obj = it as { text?: string; title?: string };
+        return sum + countWords(obj.title) + countWords(obj.text);
+      }
+      return sum;
+    }, 0);
+  }
+
+  // Ads shouldn't count as content words
+  if (t === "ad") return 0;
+
+  // Fallback:
+  // If a block has text/title strings, count them anyway.
+  return countWords(pickString(b.title)) + countWords(pickString(b.text));
 }
 
 /**
- * Inserts {type:"ad"} blocks based on cumulative word count.
- * Rules:
- * - never insert directly before h2/h3
- * - insert after content blocks (p, list, callout, quote), not after headings
- * - respects maxAutoAds and minWordsBeforeFirstAd
+ * Estimate total words in a block list.
  */
-export function injectAdsByWordCount(blocks: Block[], opts: Options = {}): Block[] {
-  const wordsPerAd = opts.wordsPerAd ?? 450;
-  const minWordsBeforeFirstAd = opts.minWordsBeforeFirstAd ?? 250;
-  const maxAutoAds = opts.maxAutoAds ?? 5;
-  const labelPrefix = opts.labelPrefix ?? "Ad Slot (Auto)";
+export function estimateWords(blocks: BlockLike[]) {
+  return (blocks || []).reduce((sum, b) => sum + blockWords(b), 0);
+}
 
-  let cumulative = 0;
-  let nextThreshold = minWordsBeforeFirstAd;
-  let inserted = 0;
+/**
+ * Decide how many in-article ad slots to insert by word count.
+ * Defaults are conservative for AdSense UX.
+ */
+export function adsByWordCount(totalWords: number, opts?: {
+  wordsPerAd?: number;   // e.g. 350-500
+  minAds?: number;       // usually 0-1
+  maxAds?: number;       // keep density reasonable
+}) {
+  const wordsPerAd = opts?.wordsPerAd ?? 450;
+  const minAds = opts?.minAds ?? 0;
+  const maxAds = opts?.maxAds ?? 4;
 
-  const out: Block[] = [];
+  if (!Number.isFinite(totalWords) || totalWords <= 0) return 0;
 
-  for (let i = 0; i < blocks.length; i++) {
-    const b = blocks[i];
-    out.push(b);
-
-    cumulative += blockWords(b);
-
-    if (inserted >= maxAutoAds) continue;
-
-    // only consider inserting after certain block types (good breakpoints)
-    const canInsertAfter =
-      b.type === "p" || b.type === "ul" || b.type === "ol" || b.type === "callout" || b.type === "quote" || b.type === "divider";
-
-    if (!canInsertAfter) continue;
-
-    // if cumulative reaches threshold, try insert
-    if (cumulative >= nextThreshold) {
-      const next = blocks[i + 1];
-      // don't insert if next is a heading
-      if (next && (next.type === "h2" || next.type === "h3")) {
-        // defer to after next content chunk
-        continue;
-      }
-
-      out.push({ type: "ad", label: `${labelPrefix} • ${inserted + 1}` });
-      inserted++;
-      nextThreshold += wordsPerAd;
-    }
-  }
-
-  return out;
+  const raw = Math.floor(totalWords / wordsPerAd);
+  const clamped = Math.max(minAds, Math.min(maxAds, raw));
+  return clamped;
 }
