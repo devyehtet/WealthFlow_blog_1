@@ -13,7 +13,7 @@ export default function CalculatorsIndex() {
             <CalculatorCard
               key={c.slug}
               title={c.title}
-              description={c.description}
+              description={c.excerpt}
               href={`/calculators/${c.slug}`}
             />
           ))}
