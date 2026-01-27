@@ -1,145 +1,127 @@
 "use client";
 
-import * as React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
-type Breakpoint = "sm" | "md" | "lg";
+type MaxWidth = "sm" | "md" | "lg" | "xl" | "full";
 
 export type AdSlotProps = {
   label?: string;
-  /** optional inline maxWidth like "720px" / "900px" */
-  maxWidth?: string | number;
-  /** extra tailwind classes */
-  className?: string;
-  /** hide on small screens (mobile) */
-  hideOnMobile?: boolean;
-  /** collapse (hide) below breakpoint (default: md) */
-  collapseBelow?: Breakpoint;
-  /** set true if you want a "sticky mobile" version */
+  /**
+   * Responsive container max width.
+   * Use with in-article ads to avoid full-bleed.
+   */
+  maxWidth?: MaxWidth;
+  /**
+   * In-article styling (centered, subtle placeholder UI).
+   */
+  inArticle?: boolean;
+  /**
+   * Optional sticky mobile ad placeholder (UX-safe).
+   */
   stickyMobile?: boolean;
+  className?: string;
 };
 
-function cx(...arr: Array<string | false | null | undefined>) {
-  return arr.filter(Boolean).join(" ");
-}
+const MAX_WIDTH_CLASS: Record<MaxWidth, string> = {
+  sm: "max-w-sm",
+  md: "max-w-md",
+  lg: "max-w-lg",
+  xl: "max-w-xl",
+  full: "max-w-none",
+};
 
-function collapseClass(bp: Breakpoint) {
-  // "collapse on mobile" meaning hidden until bp and above
-  // sm: hidden <sm, md: hidden <md, lg: hidden <lg
-  if (bp === "sm") return "hidden sm:block";
-  if (bp === "md") return "hidden md:block";
-  return "hidden lg:block";
-}
-
-/**
- * Responsive ad placeholder (safe UX)
- * - maxWidth support (fixes your TS error)
- * - nice placeholder UI
- * - can hide/collapse on mobile
- */
 export default function AdSlot({
   label = "Ad Slot",
-  maxWidth,
-  className,
-  hideOnMobile,
-  collapseBelow = "md",
+  maxWidth = "lg",
+  inArticle = false,
   stickyMobile = false,
+  className = "",
 }: AdSlotProps) {
-  // If you want sticky mobile, render a sticky bar instead of the in-article slot
-  if (stickyMobile) return <StickyMobileAd label={label} />;
+  // Optional: detect mobile to collapse in-article placeholder if needed
+  const [isMobile, setIsMobile] = useState(false);
 
-  const wrapperClasses = cx(
-    "my-8",
-    hideOnMobile && "hidden sm:block",
-    !hideOnMobile && collapseBelow ? "" : ""
-  );
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 640);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
-  const collapse = !hideOnMobile ? collapseClass(collapseBelow) : "";
+  // UX-safe rule: collapse the in-article ad placeholder on very small screens if desired
+  const shouldHideInArticleOnMobile = inArticle && isMobile;
+
+  const wrapClass = useMemo(() => {
+    const mw = MAX_WIDTH_CLASS[maxWidth] ?? MAX_WIDTH_CLASS.lg;
+
+    // Base container: centered + spacing
+    const base =
+      "mx-auto my-8 w-full " +
+      (maxWidth === "full" ? "" : mw) +
+      " " +
+      (inArticle ? "px-0 sm:px-2" : "");
+
+    return [base, className].filter(Boolean).join(" ");
+  }, [maxWidth, inArticle, className]);
+
+  // If you want to show nothing on mobile for in-article slots:
+  if (shouldHideInArticleOnMobile) return null;
 
   return (
-    <div className={cx(wrapperClasses, collapse)}>
-      <div
-        className={cx(
-          "mx-auto overflow-hidden rounded-3xl border bg-white/60 shadow-[0_18px_70px_rgba(0,0,0,0.06)] backdrop-blur",
-          "ring-1 ring-black/5",
-          className
-        )}
-        style={maxWidth ? { maxWidth } : undefined}
-      >
-        <div className="flex items-center justify-between gap-3 border-b bg-white/40 px-4 py-3">
-          <div className="text-[11px] font-semibold tracking-widest text-neutral-500">
-            ADVERTISEMENT
+    <>
+      {/* Sticky mobile (placeholder) */}
+      {stickyMobile ? (
+        <div className="fixed bottom-3 left-0 right-0 z-40 px-3 sm:hidden">
+          <div className="mx-auto flex max-w-md items-center justify-between gap-3 rounded-2xl border bg-white/85 p-3 shadow-lg backdrop-blur">
+            <div className="min-w-0">
+              <div className="text-[10px] font-semibold tracking-wide text-neutral-500">
+                ADVERTISEMENT
+              </div>
+              <div className="truncate text-xs text-neutral-700">{label}</div>
+            </div>
+            <div className="h-10 w-28 rounded-xl border border-dashed bg-white/60" />
           </div>
-          <div className="text-[11px] text-neutral-500">{label}</div>
         </div>
+      ) : null}
 
-        {/* Placeholder body (Responsive in-article style) */}
-        <div className="px-4 py-10 sm:px-6">
-          <div className="mx-auto max-w-[680px]">
-            <div className="flex items-center justify-center gap-2 text-neutral-400">
-              <span className="h-2 w-2 rounded-full bg-neutral-300/70" />
-              <span className="h-2 w-2 rounded-full bg-neutral-300/50" />
-              <span className="h-2 w-2 rounded-full bg-neutral-300/40" />
+      {/* In-page slot */}
+      <div className={wrapClass}>
+        <div
+          className={[
+            "rounded-3xl border bg-white/60 backdrop-blur",
+            "shadow-[0_16px_60px_rgba(0,0,0,0.06)]",
+            inArticle ? "p-5 sm:p-6" : "p-6",
+          ].join(" ")}
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div className="text-[10px] font-semibold tracking-wide text-neutral-500">
+              ADVERTISEMENT
             </div>
+            {inArticle ? (
+              <span className="rounded-full border bg-white/70 px-3 py-1 text-[10px] text-neutral-600">
+                Responsive in-article slot
+              </span>
+            ) : null}
+          </div>
 
-            <p className="mt-4 text-center text-xs leading-relaxed text-neutral-500">
-              Responsive in-article slot. Add AdSense code after approval.
-            </p>
+          <div className="mt-3 text-sm font-semibold text-neutral-900">
+            {label}
+          </div>
 
-            {/* ✅ When AdSense approved, replace this box with your AdSense component/script */}
-            <div className="mt-5 rounded-2xl border border-dashed bg-white/40 px-4 py-8 text-center text-xs text-neutral-500">
-              Ad placeholder
+          {/* Placeholder box (replace with AdSense after approval) */}
+          <div className="mt-4">
+            <div className="h-24 w-full rounded-2xl border border-dashed bg-white/50 sm:h-28" />
+            <div className="mt-2 text-xs text-neutral-500">
+              Add AdSense code after approval.
             </div>
+          </div>
 
-            <p className="mt-4 text-center text-xs text-neutral-400">
+          {inArticle ? (
+            <div className="mt-4 text-xs text-neutral-500">
               Tip: Place ads after strong sections (intro, mid-article, before conclusion).
-            </p>
-          </div>
+            </div>
+          ) : null}
         </div>
       </div>
-    </div>
-  );
-}
-
-/**
- * ✅ Sticky mobile ad (UX-safe)
- * - shows only on mobile
- * - dismiss button
- * - safe height, does not cover too much
- */
-function StickyMobileAd({ label }: { label: string }) {
-  const [closed, setClosed] = React.useState(false);
-
-  if (closed) return null;
-
-  return (
-    <div className="fixed inset-x-0 bottom-0 z-50 block md:hidden">
-      <div className="mx-auto max-w-[720px] px-3 pb-3">
-        <div className="overflow-hidden rounded-2xl border bg-white/80 shadow-[0_16px_60px_rgba(0,0,0,0.18)] backdrop-blur">
-          <div className="flex items-center justify-between gap-3 border-b bg-white/50 px-3 py-2">
-            <div className="text-[11px] font-semibold tracking-widest text-neutral-500">
-              AD
-            </div>
-            <div className="text-[11px] text-neutral-500">{label}</div>
-            <button
-              type="button"
-              onClick={() => setClosed(true)}
-              className="rounded-full border bg-white px-2 py-1 text-[11px] font-semibold text-neutral-700"
-              aria-label="Close ad"
-            >
-              ✕
-            </button>
-          </div>
-
-          <div className="px-3 py-3">
-            <div className="rounded-xl border border-dashed bg-white/50 px-3 py-5 text-center text-xs text-neutral-600">
-              Sticky mobile ad placeholder
-            </div>
-            <div className="mt-2 text-center text-[11px] text-neutral-400">
-              Collapses safely on mobile • Doesn’t block reading
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
