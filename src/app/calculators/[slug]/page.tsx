@@ -95,7 +95,7 @@ export default async function CalculatorPage({
         </p>
 
         <div className="my-10 hidden md:block">
-          <AdSlot label="Ad Slot (Top of calculator)" maxWidth="lg" />
+          <AdSlot label="Ad Slot (Top of calculator)" className="max-w-[720px]" />
         </div>
 
         {/* ✅ Calculator UI */}
