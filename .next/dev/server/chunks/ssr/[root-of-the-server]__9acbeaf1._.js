@@ -144,6 +144,9 @@ __turbopack_context__.s([
     ()=>guides
 ]);
 const guides = [
+    // =========================
+    // GUIDE 1 (existing)
+    // =========================
     {
         slug: "how-to-build-wealth-step-by-step",
         title: "How to Build Wealth Step by Step (Beginner-Friendly Guide)",
@@ -163,11 +166,11 @@ const guides = [
         blocks: [
             {
                 type: "p",
-                text: "Building wealth is not about getting rich quickly or taking extreme financial risks. True wealth is built through smart money management, consistent saving, long-term investing, and disciplined financial habits. Many people in the US and UK earn good incomes but still struggle financially because they lack a clear plan. The reality is that anyone can build wealth, regardless of income level, by following proven personal finance principles and making better financial decisions over time."
+                text: "Building wealth is not about getting rich quickly or taking extreme financial risks..."
             },
             {
                 type: "p",
-                text: "Wealth is not defined by how much money you earn, but by how much you keep and grow. A high salary does not guarantee financial security if expenses rise just as fast. Wealth means being able to cover your living costs comfortably, handle emergencies without stress, avoid high-interest debt, and grow your money for the future. Someone with strong financial habits and a clear plan can build more wealth than someone earning significantly more but spending without control."
+                text: "Wealth is not defined by how much money you earn, but by how much you keep and grow..."
             },
             {
                 type: "ad",
@@ -179,183 +182,13 @@ const guides = [
             },
             {
                 type: "p",
-                text: "The first step to building wealth is understanding your cash flow. Before saving or investing, you must know where your money goes each month. This means tracking your income and expenses honestly."
-            },
-            {
-                type: "p",
-                text: "List all sources of income, fixed costs like rent or mortgage payments, utilities, and insurance, as well as variable expenses such as food, transport, subscriptions, and discretionary spending. This awareness alone often leads to better financial choices because you begin to see opportunities to reduce waste and redirect money toward goals."
+                text: "The first step to building wealth is understanding your cash flow..."
             },
             {
                 type: "callout",
                 tone: "info",
                 title: "Why this matters",
-                text: "You can’t improve your finances if you don’t clearly see how money flows in and out each month."
-            },
-            {
-                type: "ad",
-                label: "Ad Slot (After cash flow section)"
-            },
-            {
-                type: "h2",
-                text: "Create a Budget That Works in Real Life"
-            },
-            {
-                type: "p",
-                text: "Once you understand your cash flow, the next step is creating a budget that actually works in real life. A budget is not meant to restrict your lifestyle but to give your money purpose."
-            },
-            {
-                type: "p",
-                text: "A simple approach is to divide your income into essentials, savings, and discretionary spending. The exact percentages matter less than the habit itself. As long as you consistently spend less than you earn and save something every month, your financial position will gradually improve."
-            },
-            {
-                type: "ad",
-                label: "Ad Slot (Mid-article)"
-            },
-            {
-                type: "h2",
-                text: "Build an Emergency Fund"
-            },
-            {
-                type: "p",
-                text: "An emergency fund is one of the most important foundations of wealth building. Life is unpredictable, and unexpected expenses can quickly derail financial progress."
-            },
-            {
-                type: "p",
-                text: "Without emergency savings, people often rely on credit cards or personal loans, which leads to long-term financial stress. A good starting point is saving a small emergency buffer, such as $1,000, and gradually building it up to cover three to six months of essential expenses. This fund should be kept separate from investments and remain easily accessible."
-            },
-            {
-                type: "h2",
-                text: "Eliminate High-Interest Debt"
-            },
-            {
-                type: "p",
-                text: "High-interest debt is one of the biggest obstacles to building wealth. Credit cards, personal loans, and payday loans often carry interest rates that are far higher than what most investments can earn."
-            },
-            {
-                type: "p",
-                text: "Carrying this kind of debt means your money is working against you instead of for you. Paying off high-interest debt provides a guaranteed financial return and frees up cash flow that can later be used for saving and investing."
-            },
-            {
-                type: "ad",
-                label: "Ad Slot (After debt section)"
-            },
-            {
-                type: "h2",
-                text: "Save With Clear Financial Goals"
-            },
-            {
-                type: "p",
-                text: "Saving money becomes much easier when it is tied to clear financial goals. Saving without direction often leads to frustration or unnecessary spending."
-            },
-            {
-                type: "p",
-                text: "Common goals include building an emergency fund, saving for a home down payment, education, travel, or future investments. When savings have a purpose, discipline becomes more natural. Automating savings by setting up regular transfers from your checking account can further simplify the process and remove emotional decision-making."
-            },
-            {
-                type: "callout",
-                tone: "tip",
-                title: "Automation tip",
-                text: "Automatic transfers help you save consistently without relying on willpower."
-            },
-            {
-                type: "ad",
-                label: "Ad Slot (After savings section)"
-            },
-            {
-                type: "h2",
-                text: "Use Compound Interest to Your Advantage"
-            },
-            {
-                type: "p",
-                text: "One of the most powerful concepts in wealth building is compound interest. Compound interest allows your money to grow not only on the original amount invested but also on the interest it earns over time."
-            },
-            {
-                type: "p",
-                text: "The longer your money remains invested, the more powerful this effect becomes. Time and consistency matter more than trying to invest large amounts all at once. Starting early, even with small contributions, can make a significant difference in long-term financial outcomes."
-            },
-            {
-                type: "h2",
-                text: "Invest for Long-Term Growth"
-            },
-            {
-                type: "p",
-                text: "Investing is essential for long-term wealth because it helps your money grow faster than inflation. Keeping all your money in cash may feel safe, but inflation slowly reduces purchasing power over time."
-            },
-            {
-                type: "p",
-                text: "Beginners should focus on diversification, regular contributions, and a long-term mindset rather than short-term market movements. Investing should be approached as a gradual process, not a gamble."
-            },
-            {
-                type: "ad",
-                label: "Ad Slot (Before protection section)"
-            },
-            {
-                type: "h2",
-                text: "Protect the Wealth You Build"
-            },
-            {
-                type: "p",
-                text: "As wealth grows, protecting it becomes just as important as building it. This includes maintaining an emergency fund, having appropriate insurance coverage, and avoiding financial scams or high-risk schemes."
-            },
-            {
-                type: "p",
-                text: "Many financial losses occur not because of poor investing, but because of lack of protection or falling for misleading opportunities. A cautious and informed approach helps preserve your progress."
-            },
-            {
-                type: "h2",
-                text: "Increase Income Without Lifestyle Inflation"
-            },
-            {
-                type: "p",
-                text: "While saving and investing are powerful, increasing income can significantly accelerate wealth building. This does not necessarily mean working longer hours, but working smarter."
-            },
-            {
-                type: "p",
-                text: "Improving skills, negotiating salary, freelancing, consulting, or making strategic career changes can increase earning potential. The key is ensuring that income increases are not immediately consumed by higher spending."
-            },
-            {
-                type: "h2",
-                text: "Start Retirement Planning Early"
-            },
-            {
-                type: "p",
-                text: "Retirement planning should begin earlier than most people expect. The earlier you start, the less you need to contribute each month to reach your goals."
-            },
-            {
-                type: "p",
-                text: "Time allows compound interest to work in your favor and provides flexibility later in life. Even modest contributions made consistently can grow into substantial retirement savings over several decades."
-            },
-            {
-                type: "ad",
-                label: "Ad Slot (Before conclusion)"
-            },
-            {
-                type: "h2",
-                text: "Stay Consistent and Think Long Term"
-            },
-            {
-                type: "p",
-                text: "Building wealth requires patience and long-term thinking. Many beginners make the mistake of chasing quick profits, constantly changing strategies, or comparing their progress to others."
-            },
-            {
-                type: "p",
-                text: "Wealth building is a personal journey. Consistent habits, steady contributions, and disciplined decision-making matter far more than perfect timing or complex strategies."
-            },
-            {
-                type: "h2",
-                text: "Use Financial Tools to Make Better Decisions"
-            },
-            {
-                type: "p",
-                text: "Financial tools play an important role in better decision-making. Calculators for compound interest, savings goals, loans, and retirement planning help visualize outcomes and set realistic expectations."
-            },
-            {
-                type: "p",
-                text: "Seeing how small changes affect long-term results often increases motivation and confidence. Using reliable financial tools removes guesswork and replaces assumptions with clarity."
-            },
-            {
-                type: "ad",
-                label: "Ad Slot (End of article)"
+                text: "You can’t improve your finances if you don’t clearly see how money flows each month."
             },
             {
                 type: "h2",
@@ -363,25 +196,158 @@ const guides = [
             },
             {
                 type: "p",
-                text: "Building wealth is a process built on small, consistent actions. It does not require perfection, luck, or a high income. It requires awareness, discipline, and time."
-            },
-            {
-                type: "p",
-                text: "By controlling expenses, saving consistently, eliminating high-interest debt, investing patiently, and planning for the future, anyone can create long-term financial security. The most important step is simply starting and staying committed over time."
+                text: "By controlling expenses, saving consistently, and investing patiently, anyone can build wealth."
             }
         ],
         faqs: [
             {
                 q: "Can beginners really build wealth?",
-                a: "Yes. Wealth depends more on habits and systems than income level."
+                a: "Yes. Wealth depends more on habits than income."
             },
             {
                 q: "Should I invest before paying off debt?",
                 a: "High-interest debt should usually be paid off first."
+            }
+        ]
+    },
+    // =========================
+    // GUIDE 2 (NEW – Smart Money Habits)
+    // =========================
+    {
+        slug: "smart-money-habits-that-actually-grow-wealth-over-time",
+        title: "Smart Money Habits That Actually Grow Wealth Over Time",
+        excerpt: "Wealth is built through consistent habits, not big wins. Learn the smart money habits that quietly compound year after year.",
+        tags: [
+            "money-habits",
+            "wealth-building",
+            "personal-finance",
+            "saving",
+            "investing"
+        ],
+        updatedAt: "2026-01-28",
+        readingMinutes: 14,
+        coverImage: {
+            src: "/images/guides/smart-money-habits.jpg",
+            alt: "Smart money habits checklist for long-term wealth"
+        },
+        blocks: [
+            {
+                type: "p",
+                text: "Building wealth is rarely about a single big decision. It is the result of many small choices made consistently over time.People who successfully grow wealth usually do not rely on luck, perfect timing, or sudden income increases. Instead, they develop smart money habits that quietly compound year after year."
             },
             {
-                q: "Is investing risky?",
-                a: "Short-term investing can be risky. Long-term diversified investing is generally more stable."
+                type: "p",
+                text: "These habits work regardless of income level or economic conditions because they focus on behavior rather than speculation."
+            },
+            {
+                type: "callout",
+                tone: "info",
+                title: "Core principle",
+                text: "Wealth grows from habits, not one-time actions."
+            },
+            {
+                type: "ad",
+                label: "Ad Slot (After introduction)"
+            },
+            {
+                type: "h2",
+                text: "Awareness Is the Starting Point of All Financial Growth"
+            },
+            {
+                type: "p",
+                text: "One of the most important habits for long-term wealth is becoming aware of how money flows in and out of your life. Many people earn enough to save and invest but struggle financially because spending happens automatically. Without awareness, money decisions are often reactive rather than intentional. Developing the habit of paying attention to cash flow creates clarity and opens the door to better choices."
+            },
+            {
+                type: "h2",
+                text: "Intentional Spending Creates Long-Term Value"
+            },
+            {
+                type: "p",
+                text: "Spending intentionally does not mean eliminating enjoyment or living extremely frugally. It means choosing where money goes based on long-term value rather than impulse. Wealth builders often pause before spending and consider whether a purchase aligns with their goals. Over time, this habit reduces wasteful spending and increases the amount available for saving and investing without creating dissatisfaction."
+            },
+            {
+                type: "h2",
+                text: "Living Below Your Means Builds Financial Margin"
+            },
+            {
+                type: "p",
+                text: "Living below your means is one of the most powerful wealth-building habits. This principle works at every income level and becomes even more effective as income grows. When expenses remain lower than income, a financial buffer is created. This buffer supports saving, investing, and handling unexpected costs without relying on debt. It also provides flexibility and peace of mind."
+            },
+            {
+                type: "ad",
+                label: "Ad Slot (Mid-article)"
+            },
+            {
+                type: "h2",
+                text: "Avoiding Lifestyle Inflation Accelerates Wealth Growth"
+            },
+            {
+                type: "p",
+                text: "As income increases, it is tempting to increase spending at the same pace. This habit, known as lifestyle inflation, is one of the biggest barriers to wealth accumulation. People who grow wealth tend to increase their standard of living slowly and intentionally. By controlling lifestyle growth while income rises, they create a widening gap that fuels long-term financial progress."
+            },
+            {
+                type: "callout",
+                tone: "tip",
+                title: "Habit tip",
+                text: "Automate savings immediately after payday."
+            },
+            {
+                type: "h2",
+                text: "Tracking Money Keeps Financial Progress on Course"
+            },
+            {
+                type: "p",
+                text: "Regularly tracking income, expenses, and savings is a habit shared by most wealth builders. This does not require complex systems or daily monitoring. Even a simple monthly review can reveal patterns and highlight areas for improvement. Tracking money increases accountability and helps catch small issues before they become long-term problems."
+            },
+            {
+                type: "ad",
+                label: "Ad Slot (Before conclusion)"
+            },
+            {
+                type: "h2",
+                text: "Consistent Saving Builds Financial Momentum"
+            },
+            {
+                type: "p",
+                text: "Saving money consistently is a foundational habit for wealth creation. Waiting to save whatever is left at the end of the month often results in inconsistent progress. Wealth builders prioritize saving and treat it as a non-negotiable expense. Even small amounts saved regularly create momentum and reinforce disciplined behavior."
+            },
+            {
+                type: "h2",
+                text: "Automating Savings Removes Willpower from the Equation"
+            },
+            {
+                type: "p",
+                text: "Automation is one of the most effective tools for building saving habits. When savings are automated, money is set aside before it can be spent. This removes emotional decision-making and ensures consistency. Over time, automated savings grow quietly and steadily, making wealth building feel effortless rather than forced."
+            },
+            {
+                type: "h2",
+                text: "Emergency Funds Protect Wealth from Setbacks"
+            },
+            {
+                type: "p",
+                text: "An emergency fund is a habit that protects progress rather than directly growing wealth. Unexpected expenses are inevitable, and without emergency savings, people often rely on high-interest debt or sell investments at the wrong time. Maintaining an emergency fund provides stability and allows long-term plans to continue uninterrupted during difficult periods."
+            },
+            {
+                type: "h2",
+                text: "Automating Savings Removes Willpower from the Equation"
+            },
+            {
+                type: "p",
+                text: "Automation is one of the most effective tools for building saving habits. When savings are automated, money is set aside before it can be spent. This removes emotional decision-making and ensures consistency. Over time, automated savings grow quietly and steadily, making wealth building feel effortless rather than forced."
+            }
+        ],
+        faqs: [
+            {
+                q: "Do small habits really make a difference?",
+                a: "Yes. Small habits compound over time and create large financial results."
+            },
+            {
+                q: "Is income more important than habits?",
+                a: "Income helps, but habits determine how much wealth you actually keep and grow."
+            },
+            {
+                q: "How long does it take to see results?",
+                a: "Financial habits show results gradually, but consistency leads to meaningful progress within years."
             }
         ]
     }
@@ -867,6 +833,161 @@ const blogs = [
             {
                 type: "p",
                 text: "In the end, debt itself is not the enemy. Poor decisions and lack of planning are what make debt harmful. When used wisely, debt can support growth and opportunity. When used carelessly, it can limit choices and delay financial goals. Knowing what you should borrow for and what you should avoid is a critical step toward long-term financial stability and wealth building."
+            }
+        ]
+    },
+    {
+        slug: "best-financial-calculators-to-plan-your-money-better",
+        title: "Best Financial Calculators to Plan Your Money Better",
+        excerpt: "Financial calculators turn complex money decisions into clear numbers. Learn which calculators help you save smarter, manage debt, and plan long-term with confidence.",
+        updatedAt: "2026-01-28",
+        readingMinutes: 11,
+        tags: [
+            "financial-calculators",
+            "personal-finance",
+            "money-planning",
+            "saving",
+            "investing",
+            "debt"
+        ],
+        coverImage: {
+            src: "/images/blog/financial-calculators.jpg",
+            alt: "Financial planning with calculators for savings, investing, and loans"
+        },
+        blocks: [
+            {
+                type: "p",
+                text: "Planning money effectively is one of the most important skills for long-term financial stability and wealth building. Many people struggle with financial decisions not because they lack discipline, but because they lack clarity. Financial calculators solve this problem by turning complex money questions into simple, understandable numbers."
+            },
+            {
+                type: "p",
+                text: "Instead of guessing how much to save, invest, or repay, calculators provide clear answers based on real data and realistic assumptions. This clarity reduces stress and improves confidence when making financial decisions."
+            },
+            {
+                type: "callout",
+                tone: "info",
+                title: "Why calculators matter",
+                text: "Clarity beats guesswork. Good financial decisions start with clear numbers."
+            },
+            {
+                type: "ad",
+                label: "Ad Slot (After intro)"
+            },
+            {
+                type: "h2",
+                text: "Savings Calculators: Turn Goals Into Monthly Plans"
+            },
+            {
+                type: "p",
+                text: "Savings calculators are among the most widely used financial tools because they address a common challenge: how much to save and how long it will take to reach a goal. Large savings targets often feel overwhelming, but calculators break them into manageable monthly amounts."
+            },
+            {
+                type: "p",
+                text: "By adjusting contribution levels and timelines, users can design realistic savings plans that match their income and lifestyle. This structure makes saving feel achievable rather than intimidating."
+            },
+            {
+                type: "h2",
+                text: "Emergency Fund Calculators: Build Financial Security"
+            },
+            {
+                type: "p",
+                text: "Emergency fund calculators help translate expert advice—such as saving three to six months of expenses—into a practical plan. Instead of abstract recommendations, users see exactly how much they need to save each month to reach financial safety."
+            },
+            {
+                type: "p",
+                text: "This structured approach encourages consistency and reduces reliance on debt during unexpected events."
+            },
+            {
+                type: "ad",
+                label: "Ad Slot (Mid-article)"
+            },
+            {
+                type: "h2",
+                text: "Compound Interest Calculators: Visualize Long-Term Growth"
+            },
+            {
+                type: "p",
+                text: "Compound interest calculators are essential for understanding how money grows over time. They show how reinvested returns accelerate growth and why starting early often matters more than investing large sums later."
+            },
+            {
+                type: "p",
+                text: "Seeing long-term projections helps users prioritize consistent investing and develop patience—two key traits of successful wealth builders."
+            },
+            {
+                type: "h2",
+                text: "Investment Return Calculators: Set Realistic Expectations"
+            },
+            {
+                type: "p",
+                text: "Investment calculators estimate potential growth based on contributions, time horizon, and expected returns. While projections are never guaranteed, they help users set realistic expectations and understand the relationship between risk, return, and time."
+            },
+            {
+                type: "h2",
+                text: "Loan and Mortgage Calculators: Understand True Costs"
+            },
+            {
+                type: "p",
+                text: "Loan calculators reveal monthly payments, total interest, and the real cost of borrowing. This transparency helps users compare loan options and avoid unnecessary debt."
+            },
+            {
+                type: "p",
+                text: "Mortgage calculators are especially important for homebuyers, allowing them to test scenarios such as different interest rates, loan terms, and down payments before making long-term commitments."
+            },
+            {
+                type: "ad",
+                label: "Ad Slot (Before conclusion)"
+            },
+            {
+                type: "h2",
+                text: "Debt Repayment and Credit Card Payoff Calculators"
+            },
+            {
+                type: "p",
+                text: "Credit card payoff and debt repayment calculators help users see how interest compounds against them. These tools demonstrate how increasing payments can dramatically shorten repayment timelines and reduce total interest paid."
+            },
+            {
+                type: "h2",
+                text: "Retirement and Inflation Calculators: Plan for the Future"
+            },
+            {
+                type: "p",
+                text: "Retirement calculators estimate future needs and show how current savings contribute toward long-term goals. Inflation calculators add another layer by revealing how purchasing power changes over time."
+            },
+            {
+                type: "p",
+                text: "Together, these tools help users plan realistically and avoid underestimating future expenses."
+            },
+            {
+                type: "h2",
+                text: "Budget and Net Worth Calculators: Gain Full Visibility"
+            },
+            {
+                type: "p",
+                text: "Budget calculators organize income and expenses, revealing spending patterns that often go unnoticed. Net worth calculators provide a snapshot of overall financial health by comparing assets and liabilities."
+            },
+            {
+                type: "p",
+                text: "Tracking these metrics over time encourages accountability and supports better long-term decisions."
+            },
+            {
+                type: "h2",
+                text: "Why Financial Calculators Improve Consistency"
+            },
+            {
+                type: "p",
+                text: "One of the biggest advantages of financial calculators is motivation. Seeing progress toward goals reinforces positive behavior and encourages consistency. Small adjustments, visualized clearly, often lead to better outcomes than drastic changes."
+            },
+            {
+                type: "h2",
+                text: "Final Thoughts"
+            },
+            {
+                type: "p",
+                text: "Financial calculators are tools, not guarantees, but they provide direction and structure. By removing emotion, clarifying trade-offs, and supporting long-term thinking, they help people make smarter money decisions."
+            },
+            {
+                type: "p",
+                text: "When used consistently, the right financial calculators reduce stress, improve discipline, and create a clear path toward long-term financial security."
             }
         ]
     },

@@ -35,3 +35,74 @@ Import trace:
     ./Documents/wealthflow_new/src/app/layout.tsx
 [00:11:23.190] Server  LOG     ✓ Compiled in 422ms
 [00:12:31.533] Browser WARN    Image with src "/images/blog/savings-goal-calculator.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:28:49.615] Browser ERROR   ./Documents/wealthflow_new/src/content/blogs.ts:516:3
+Parsing ecmascript source code failed
+  514 |
+  515 |   // --- sample posts ---
+> 516 |   {
+      |   ^
+  517 |     slug: "why-your-budget-fails",
+  518 |     title: "Why Your Budget Fails (And How to Fix It)",
+  519 |     excerpt:
+
+Expected ',', got '{'
+
+Import trace:
+  Server Component:
+    ./Documents/wealthflow_new/src/content/blogs.ts
+    ./Documents/wealthflow_new/src/app/page.tsx
+[00:28:52.616] Browser ERROR   ./Documents/wealthflow_new/src/content/blogs.ts:513:3
+Parsing ecmascript source code failed
+  511 |
+  512 |   // --- sample posts ---
+> 513 |   {
+      |   ^
+  514 |     slug: "why-your-budget-fails",
+  515 |     title: "Why Your Budget Fails (And How to Fix It)",
+  516 |     excerpt:
+
+Expected ',', got '{'
+
+Import trace:
+  Server Component:
+    ./Documents/wealthflow_new/src/content/blogs.ts
+    ./Documents/wealthflow_new/src/app/page.tsx
+[00:28:55.300] Server  LOG     ✓ Compiled in 43ms
+[00:29:07.395] Browser WARN    Image with src "/images/blog/financial-calculators.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:47:52.484] Server  LOG     ✓ Compiled in 313ms
+[00:48:12.624] Browser ERROR   ./Documents/wealthflow_new/src/content/guides.ts:201:5
+Parsing ecmascript source code failed
+  199 |     ],
+  200 |
+> 201 |     {
+      |     ^
+  202 |   slug: "smart-money-habits-that-actually-grow-wealth-over-time",
+  203 |   title: "Smart Money Habits That Actually Grow Wealth Over Time",
+  204 |   excerpt:
+
+Unexpected token `{`. Expected identifier, string literal, numeric literal or [ for the computed key
+
+Import trace:
+  Server Component:
+    ./Documents/wealthflow_new/src/content/guides.ts
+    ./Documents/wealthflow_new/src/app/page.tsx
+[00:52:14.954] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:52:19.784] Browser WARN    Image with src "/images/guides/smart-money-habits.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:53:16.612] Browser ERROR   ./Documents/wealthflow_new/src/content/guides.ts:86:15
+Parsing ecmascript source code failed
+  84 |       {
+  85 |         type: "p",
+> 86 |         text: "Building wealth is rarely about a single big decision. It is the result of many small choices made consistently over time.
+     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  87 |         People who successfully grow wealth usually do not rely on luck, perfect timing, or sudden income increases. Instead, they develop smart money habits that quietly compound year after year.",
+  88 |       },
+  89 |       {
+
+Unterminated string constant
+
+Import trace:
+  Server Component:
+    ./Documents/wealthflow_new/src/content/guides.ts
+    ./Documents/wealthflow_new/src/app/page.tsx
+[00:56:00.485] Server  LOG     ✓ Compiled in 74ms
+[00:56:42.846] Server  LOG     ✓ Compiled in 57ms
